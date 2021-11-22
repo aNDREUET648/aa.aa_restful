@@ -28,14 +28,28 @@ Manage multiples lists. Lists by category. I.e. Shopping, Work, House,...
 
   - **Cliente-Servidor**: Debe existir una separación entre el servidor que ofrece un servicio y el cliente que lo consume.
   - **Stateless**: Cada solicitud de un cliente debe contener toda la información requerida por el servidor para llevar a cabo la solicitud. El servidor no puede almacenar información proporcionada por el cliente en una solicitud y utilizarla en otra solicitud.
-Cacheable : el servidor debe indicar al cliente si las solicitudes se pueden almacenar en caché o no.
-Sistema en capas : la comunicación entre un cliente y un servidor debe estar estandarizada de tal manera que permita a los intermediarios responder a las solicitudes en lugar del servidor final, sin que el cliente tenga que hacer nada diferente.
-Interfaz uniforme : el método de comunicación entre un cliente y un servidor debe ser uniforme.
-Código a pedido : los servidores pueden proporcionar código ejecutable o scripts para que los clientes lo ejecuten en su contexto. Esta restricción es la única que es opcional.  
- Cualquier mensaje que envíe un jugador (escribir texto en su consola) al servidor será respondido con
- un mensaje del servidor tipo: 
+  - **Cacheable**: el servidor debe indicar al cliente si las solicitudes se pueden almacenar en caché o no.
+  - **Sistema en capas**: el cliente puede acceder a los recursos del servidor de forma indirecta a través de otras capas, como un proxy o un equilibrador de carga sin que el cliente tenga que hacer nada diferente.
+  - **Interfaz uniforme**: el servidor proporcionará una interfaz uniforme para acceder a los recursos sin definir su representación.
+  - **Código a pedido (opcional)**: los servidores pueden proporcionar código ejecutable o scripts para que los clientes lo ejecuten en su contexto. 
+
+## Identificación de los recursos
+
+ Para el consumo de los servicios que ofrece la API REST es necesariodefinir los recursos. Al tratarse de una lista de tareas, mi recurso será **tasca**.
  
-  **Gracias _Thread n_, aún quedan _p_ clientes por conectar. Vamos a esperar**
+## Definición de los "puntos finales"(endpoints)
+
+| Método HTTP | Endpoint |  Descripcioó  |
+| ------------ | ------------- | ------------- | ------------- |
+| GET | /tasca | Léche, Hüevos, Pizza, Queso |
+| GET | Universidad | Acabar práctica AA.AA. |
+| POST | Trabajo | Entregar informe semanal |
+
+ 
+ a el consumo de los servicios que ofrece la API REST es necesariodefinir los recursos. Al tratarse de una lista de tareas, mi recurso será **tasca**.
+ 
+  - Constante **TOPE** donde inicializaré el tamaño de mi habitación _(Waiting Room)_
+  - Lista **hilos_activos** que guardará el nombre del los hilo que se conecta.
  
 | id  | categoria |  descripcio  | realitzada (boolean) |
 | ------------ | ------------- | ------------- | ------------- |
@@ -52,4 +66,5 @@ usando Python y el microframework Flask .
 
 
 [Restful with Python:  Requests and Flask](https://realpython.com/api-integration-in-python/)
+
 [Wikipedia. Representational state transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
