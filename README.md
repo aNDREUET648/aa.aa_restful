@@ -35,21 +35,33 @@ Manage multiples lists. Lists by category. I.e. Shopping, Work, House,...
 
 ## Identificación de los recursos
 
- Para el consumo de los servicios que ofrece la API REST es necesariodefinir los recursos. Al tratarse de una lista de tareas, mi recurso será **tasca**.
+ Para el consumo de los servicios que ofrece la API REST es necesario definir los recursos. Al tratarse de una lista de tareas, mi único recurso expuesto será **tasca**, el cual tiene los siguientes campos:
+ 
+ - **id**: URI único para la tarea. Tipo int.
+ - **categoria**: Descripción corta de la tarea. Tipo string.
+ - **descripcio**: Descripción larga de la tarea.  Tipo string.
+ - **realitzada**: Estado de finalización de la tarea. Tipo boolean.
  
 ## Definición de los "puntos finales"(endpoints)
 
-| Método HTTP | Endpoint |  Descripcioó  |
-| ------------ | ------------- | ------------- | ------------- |
-| GET | /tasca | Léche, Hüevos, Pizza, Queso |
-| GET | Universidad | Acabar práctica AA.AA. |
-| POST | Trabajo | Entregar informe semanal |
+| Método HTTP | Endpoint |  Descripció  |
+| -------- | --------- | ---------- |
+|   GET    | /tasca    |   Lista de todas las tareas  |
+|   GET    | /tasca/<int:tasca_id> | Vsualización de una tarea específica |
+|   GET    | /tasca/categoria/<string:cat> | Lista de todas las tareas de una determinada categoría |
+|   GET    | /tasca/fet/0    | Lista todas las tareas pendientes |
+|   GET    | /tasca/fet/1    | Lista todas las tareas realizadas |
+|   PUT    | /tasca/<int:tasca_id> | Actualiza una tarea determinada. 'categoria', 'descripcio' y 'realitzada' |
+|   POST   | /tasca    | Añade una nueva tarea |
+|   DELETE | /tasca/esborra/<int:tasca_id> | Eliminar una tarea determinada |
 
- 
- a el consumo de los servicios que ofrece la API REST es necesariodefinir los recursos. Al tratarse de una lista de tareas, mi recurso será **tasca**.
- 
-  - Constante **TOPE** donde inicializaré el tamaño de mi habitación _(Waiting Room)_
-  - Lista **hilos_activos** que guardará el nombre del los hilo que se conecta.
+## Ejecución de las pruebas
+
+ Existen muchas formas de probar una API REST, algunas sofisticadas como [Postman](https://www.postman.com/) (app o extensión) o [YARC! Yet Another REST Client!](https://yet-another-rest-client.com/) (extensión de Chrome), otras, más rudimentarias, pero no por ello menos efectivas, por ejemplo, la herramienta por línea de comandos [cURL](https://curl.se/).
+ Las pruebas por tema de agilidad las he realizado con YARC! pero para una completa comprensión de la API mostraré el estilo de codificación con los comandos de cURL:
+  
+### 
+ Con el fin de facilitar las pruebas he definido una serie de registros (diccionarios) por defecto. El formato de intercambio de datos que emplearé por defecto será JSON:
  
 | id  | categoria |  descripcio  | realitzada (boolean) |
 | ------------ | ------------- | ------------- | ------------- |
@@ -60,11 +72,21 @@ Manage multiples lists. Lists by category. I.e. Shopping, Work, House,...
 | 5 | Compras | Calgon, miel, suavizante| False |
 | 6 | Trabajo | Revisión de elementos FDS | False |
 
+## Dependencias
+
+Para la realización de la API en Python he requerido de los siguientes "micro" framework y extensiones:
+
+ - Flask              2.0.2    (micro framework para Python)
+ - Flask-Jsonpify     1.5.0    (extensión para Flask)
+ - Flask-RESTful      0.3.9    (extensión para Flask)
 
 
-usando Python y el microframework Flask .
-
+## Bibliografía y documentación utilizada
 
 [Restful with Python:  Requests and Flask](https://realpython.com/api-integration-in-python/)
 
 [Wikipedia. Representational state transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
+
+[FlaskRESTful Website](https://flask-restful.readthedocs.io/en/latest/index.html)
+
+[Flask Website](https://flask.palletsprojects.com/en/2.0.x/)
