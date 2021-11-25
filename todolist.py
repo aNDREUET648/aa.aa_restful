@@ -31,16 +31,16 @@ tasques = [
         'realitzada': False
     },
     {
-      "categoria": "Compras",
-      "descripcio": "Calgon, miel, suavizante",
-      "id": 5,
-      "realitzada": False
+        'id': 5,
+        'categoria': 'Compras',
+        'descripcio': 'Calgon, miel, suavizante',
+        'realitzada': False
     },
     {
-      "categoria": "Trabajo",
-      "descripcio": "Revisión de todos los elemntos fuera de posición standard",
-      "id": 6,
-      "realitzada": False
+        'id': 6,
+        'categoria': 'Trabajo',
+        'descripcio': 'Revisión de elementos FDS',
+        'realitzada': False
     }
 ]
 
@@ -69,7 +69,7 @@ class ToDo(Resource):
            responseBody = {"Error en cerca": "No l'he trobada"}
            return make_response(jsonify(responseBody), 404)
         if not request.json:
-           responseBody = {"Error en arguments o dades": "Falta categoria, json mal format o sense json"}
+           responseBody = {"Error en arguments o dades": "Falta Header, json mal format o sense json"}
            return make_response(jsonify(responseBody), 400)
         
         # Tenemos 'categoria' por modificar y es distinto a lo que ya había
@@ -91,7 +91,7 @@ class ToDo(Resource):
                 tasques[tasca_id-1]['realitzada'] = True
             else:
                 tasques[tasca_id-1]['realitzada'] = False
-        return jsonify({'tasca': tasques[tasca_id-1]})
+        return jsonify({'tasca actualitzada': tasques[tasca_id-1]})
 
 class ToDo_Crea_y_Lista(Resource):  
     '''
@@ -162,7 +162,7 @@ class Esborra(Resource):
            responseBody = {"Error en cerca": "No l'he trobada"}
            return make_response(jsonify(responseBody), 404)
         tasques.remove(tarea[0])
-        return jsonify({'result': True})
+        return jsonify({'eliminat': True})
 
 '''
                     Añadir las rutas (route) hacia los recursos
@@ -174,4 +174,4 @@ api.add_resource(List_Realitzada, '/tasca/fet/<int:flag>')
 api.add_resource(Esborra, '/tasca/esborra/<int:tasca_id>')
 
 if __name__ == '__main__':
-    app.run(port='5000',debug=True)
+    app.run(port='9999',debug=True)
