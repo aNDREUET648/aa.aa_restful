@@ -3,10 +3,12 @@
 
 
  ## A1. What TYPE of variable is it returning?
-   ### Returns a string dictionary
+ 
+ Returns a string dictionary
 
  ## A2. What does the jsonify library?
-   ### jsonify creates an object from Response's Class with the JSON representation of the given arguments. So, cell3.py return a JSON representation
+ 
+ jsonify creates an object from Response's Class with the JSON representation of the given arguments. So, cell3.py return a JSON representation
 
  ## A3. Activity
 
