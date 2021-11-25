@@ -1,6 +1,15 @@
 
 # Arquitecturas Avanzadas. Práctica 2. 
 
+
+ ## A1. What TYPE of variable is it returning?
+   ### Returns a string dictionary
+
+ ## A2. What does the jsonify library?
+   ### jsonify creates an object from Response's Class with the JSON representation of the given arguments. So, cell3.py return a JSON representation
+
+ ## A3. Activity
+
 _API para gestionar listas de tareas TODO. Implementado en Flask-RESTful_
 
 ## Enunciado
@@ -129,15 +138,12 @@ Si el resultado es satisfactorio nos devolverá un json:
 ```
 {"eliminat": true}
 ```
-## Particularidades ⚙️
+## Particularidades 
 
-_Servidor_
-
-
-La claúsula __main__ simplemente visualiza los hilos activos en ese momento. 
-Cabe destacar que si se ejecuta desde un _Visual Studio Code_ aparecen inicialmente 6 hilos:
-### 
-
+A la hora de la realización de la práctica y aplicar la metodología de diseño REST me he encontrado varios puntos que destaco a continuación:
+  - Las peticiones GET al ser una operación de lectura no acepta parámetros para filtrar la información que requiero del servidor. Por ejemplo, no puedo obtener una lista de tareas de la categoría Trabajo haciendo un GET /tasca/categoria pasándole un *Payload* '{"categoria":"Trabajo"}'. El request.json() me devuelve un valor null siempre. Por lo que para mantener el estilo REST la petición debe hacerse GET /tasca/categoria/Trabajo
+  - En mi lista de tareas he querido emplear la variable booleana *realitzada* para filtrar tareas hechas y pendientes. JSON ve a esta variable como true/false, pero Python las ve como True/False, por lo que esta diferencia, aunque pequeña es particularmente insidiosa.  Una por el tiempo que me ha llevado darme cuenta del detalle y otra por tener que realizar un tratamiento cada vez que se tenga que manipular.
+  - La última y no por ello la menos importante es que la extensión Flask-RESTful en la práctica ha creado una capa más de restricciones al crear la API. Y es que los métodos que tienen las clases de cada recurso que añado **sólo** pueden constar de las palabras clave de las operaciones/verbos HTTP. Con esto quiero decir que para mi método GET puedo definir: *def get(self,tasca_id):* pero no puedo usar *def get_tarea(self,tasca_id):*. get como método le sirve pero get_tarea no existe como método http y no accederá. Los métodos que haya en las clases se deben definir exactamente como los verbos HTTP.
 
 ## Dependencias
 
@@ -157,3 +163,31 @@ Para la realización de la API en Python he requerido de los siguientes "micro" 
 [FlaskRESTful Website](https://flask-restful.readthedocs.io/en/latest/index.html)
 
 [Flask Website](https://flask.palletsprojects.com/en/2.0.x/)
+
+ # A4. Activity. What are the differences between an RPC and a Restful service?
+
+Básicamente, REST es un estilo/filosofía de programación donde la información se manipula mediante **recursos**, mientras que en RPC expones **operaciones**. 
+
+Una solicitud HTTP básica consta de un método (method) y un recurso (endpoint). El método HTTP (o verbo) indica lo que desea hacer (GET / POST / PUT / DELETE).
+
+Así, en RPC expones operaciones para manipular datos a través de HTTP y aunque no hay reglas:
+ - El recurso contiene el nombre de la operación que desea invocar.
+ - Generalmente solo usa verbos HTTP GET y POST.
+
+REST en cambio, expone los datos como recursos que manipula a través del protocolo HTTP utilizando el verbo HTTP correcto:
+ - El endpoint contiene el recurso que manipula.
+ - Se suele usar la analogía CRUD para explicar los principios de las solicitudes REST. El verbo HTTP indica lo que desea hacer (Crear / Leer / Actualizar / Eliminar).
+
+Así por ejemplo:
+
+|Acción	|RPC (operación)	|REST (recurso)|
+| -------- | --------- | ---------- |
+| Registrarse | POST /signup	| POST /persons |
+| Eliminar |	POST /resign |	DELETE /persons/1234 |
+| Datos de una persona | GET /readUser?personid=1234	| GET /persons/1234 |
+| Mostrar de items de una persona |	GET /readUsersItemsList?userid=1234 |	GET /persons/1234/items |
+| Añadir un item a una persona |	POST /addItemToUsersItemsList	| POST /persons/1234/items |
+| Actualizar un item | POST /modifyItem	| PUT /items/456 |
+| Borrar un item |	POST /removeItem?itemId=456	| DELETE /items/456|
+
+
