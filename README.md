@@ -202,4 +202,5 @@ Así por ejemplo:
 | Actualizar un item | POST /modifyItem	| PUT /items/456 |
 | Borrar un item |	POST /removeItem?itemId=456	| DELETE /items/456|
 
-
+---
+[aNDREUET648](https://github.com/aNDREUET648) 
